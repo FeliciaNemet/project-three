@@ -40,7 +40,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUserInput(character);
+    setUserInput(userInput);
   }
 
 
@@ -50,30 +50,34 @@ function App() {
       <h1>Choose Your Character</h1>
       <h2>Please select a character below.</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={ (e) => {handleSubmit(e)} }>
         <label htmlFor="characterChoice">Which character?</label>
         <select 
         name="characterChoice"
         id="characterChoice"
         onChange={handleInput}
         value={userInput}>
-          <option value defaultValue >Please choose a character</option>
-          <option value="spider-man">Spider-Man</option>
-          <option value="iron man">Iron Man</option>
-          <option value="green goblin">Green Goblin</option>
-          <option value="doctor octopus">Doctor Octopus</option>
-          <option value="daredevil">Daredevil</option>
-          <option value="iron fist">Iron Fist</option>
-          <option value="venom eddie brock">Venom</option>
-          <option value="black panther">Black Panther</option>
-          <option value="erik killmonger">Erik Killmonger</option>
+          <option default value >Please choose a character</option>
+          <option value="Spider-Man (1602)">Spider-Man</option>
+          <option value="Iron Man">Iron Man</option>
+          <option value="Green Goblin (Barry Norman Osborn)">Green Goblin</option>
+          <option value="Doctor Octopus">Doctor Octopus</option>
+          <option value="Daredevil">Daredevil</option>
+          <option value="Iron Fist (Bei Bang-Wen)">Iron Fist</option>
+          <option value="Venom (Flash Thompson)">Venom</option>
+          <option value="Black Panther">Black Panther</option>
+          <option value="Killmonger">Killmonger</option>
         </select>
-      <button>Submit</button>
+      {/* <button>Submit</button> */}
       </form>
-      <div>
-        <h3>{}</h3>
-        <img src="" alt="" />
-      </div>
+      {character.map( (characterData) => {
+        return (
+          <div key={characterData.id}>
+            <h3>{characterData.name}</h3>
+            <img src="" alt="" />
+          </div>
+        )
+      })}
     </div>
   );
 }
