@@ -17,14 +17,21 @@ function App() {
       method: 'GET',
       dataResponse: 'json',
       params: {
-        name: "Iron Man",
+        name: character,
         limit: 1
       }
     }).then((response) => {
       console.log(response.data.data.results)
       setCharacter(response.data.data.results)
     });
-  }, [searchTerm]);
+  }, [character]);
+
+
+
+
+
+
+
 
   const handleInput = (event) => {
     console.log('is this working?', event.target.value);
@@ -33,7 +40,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSearchTerm(character);
+    setUserInput(character);
   }
 
 
@@ -45,11 +52,15 @@ function App() {
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="characterChoice">Which character?</label>
-        <select name="characterChoice" id="characterChoice">
+        <select 
+        name="characterChoice"
+        id="characterChoice"
+        onChange={handleInput}
+        value={userInput}>
           <option value defaultValue >Please choose a character</option>
           <option value="spider-man">Spider-Man</option>
           <option value="iron man">Iron Man</option>
-          <option value="green- oblin">Green Goblin</option>
+          <option value="green goblin">Green Goblin</option>
           <option value="doctor octopus">Doctor Octopus</option>
           <option value="daredevil">Daredevil</option>
           <option value="iron fist">Iron Fist</option>
