@@ -49,7 +49,7 @@ function App() {
         
         >
           <option value defaultValue >Please choose a character</option>
-          <option value="1011054">Spider-Man</option>
+          <option value="1009610">Spider-Man</option>
           <option value="1009368">Iron Man</option>
           <option value="1014985">Green Goblin</option>
           <option value="1009276">Doctor Octopus</option>
@@ -66,6 +66,7 @@ function App() {
         <div>
         <h3>{character.name}</h3>
         <img src={`${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`} alt={character.name} />
+        <p>{character.description}</p>
         </div>
       )
     }
