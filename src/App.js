@@ -2,29 +2,17 @@
 // import Footer from './Components.js/Footer.js';
 import { useEffect, useState } from 'react';
 // import react from 'react';
-import axios from 'axios';
+import apiCall from './Utils.js';
+
 import './App.css';
 
 function App() {
-  const [character, setCharacter] = useState([]);
+  const [character, setCharacter] = useState('');
   const [userInput, setUserInput] = useState('');
-  const [searchTerm, setSearchTerm] = useState('')
-
   useEffect( () => {
+    // apiCall();
     
-    axios({
-      url: `http://gateway.marvel.com/v1/public/characters?ts=1&apikey=a8e885bb92f8b3282a281b15ee8b4a19&hash=a0492b78fb5d29118e5a7fda370cbcd4`,
-      method: 'GET',
-      dataResponse: 'json',
-      params: {
-        name: character,
-        limit: 1
-      }
-    }).then((response) => {
-      console.log(response.data.data.results)
-      setCharacter(response.data.data.results)
-    });
-  }, [character]);
+  }, []);
 
 
 
@@ -34,13 +22,14 @@ function App() {
 
 
   const handleInput = (event) => {
-    console.log('is this working?', event.target.value);
-    setCharacter(event.target.value);
+    setUserInput(event.target.value);
+    
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUserInput(character);
+    apiCall(userInput).then((data)=>{setCharacter(data)});
+    
   }
 
 
@@ -56,24 +45,30 @@ function App() {
         name="characterChoice"
         id="characterChoice"
         onChange={handleInput}
-        value={userInput}>
+        value={userInput}
+        
+        >
           <option value defaultValue >Please choose a character</option>
-          <option value="spider-man">Spider-Man</option>
-          <option value="iron man">Iron Man</option>
-          <option value="green goblin">Green Goblin</option>
-          <option value="doctor octopus">Doctor Octopus</option>
-          <option value="daredevil">Daredevil</option>
-          <option value="iron fist">Iron Fist</option>
-          <option value="venom eddie brock">Venom</option>
-          <option value="black panther">Black Panther</option>
-          <option value="erik killmonger">Erik Killmonger</option>
+          <option value="1011054">Spider-Man</option>
+          <option value="1009368">Iron Man</option>
+          <option value="1014985">Green Goblin</option>
+          <option value="1009276">Doctor Octopus</option>
+          <option value="1009262">Daredevil</option>
+          <option value="1011318">Iron Fist</option>
+          <option value="1009663">Venom</option>
+          <option value="1009187">Black Panther</option>
+          <option value="1011289">Erik Killmonger</option>
         </select>
-      <button>Submit</button>
+      <input type='submit' value="Submit"/>
       </form>
-      <div>
-        <h3>{}</h3>
-        <img src="" alt="" />
-      </div>
+    {
+      character &&(
+        <div>
+        <h3>{character.name}</h3>
+        <img src={`${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`} alt={character.name} />
+        </div>
+      )
+    }
     </div>
   );
 }
