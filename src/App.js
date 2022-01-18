@@ -8,7 +8,8 @@ import './App.css';
 function App() {
   const [character, setCharacter] = useState([]);
   const [userInput, setUserInput] = useState('');
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
+  const [chosenCharacter, setChosenCharacter] = useState('');
 
   useEffect( () => {
     
@@ -16,15 +17,15 @@ function App() {
       url: `http://gateway.marvel.com/v1/public/characters?ts=1&apikey=a8e885bb92f8b3282a281b15ee8b4a19&hash=a0492b78fb5d29118e5a7fda370cbcd4`,
       method: 'GET',
       dataResponse: 'json',
-      params: {
-        name: character,
-        limit: 1
-      }
+      // params: {
+      //   name: character,
+      //   limit: 1
+      // }
     }).then((response) => {
       console.log(response.data.data.results)
       setCharacter(response.data.data.results)
     });
-  }, [character]);
+  }, []);
 
 
 
@@ -35,12 +36,13 @@ function App() {
 
   const handleInput = (event) => {
     console.log('is this working?', event.target.value);
-    setCharacter(event.target.value);
+    setUserInput(event.target.value);
+    
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUserInput(userInput);
+    setChosenCharacter(userInput);
   }
 
 
@@ -70,14 +72,14 @@ function App() {
         </select>
       {/* <button>Submit</button> */}
       </form>
-      {character.map( (characterData) => {
+      {/* {character.map( (characterData) => {
         return (
           <div key={characterData.id}>
             <h3>{characterData.name}</h3>
-            <img src="" alt="" />
+            <img src={characterData} alt={characterData.name} />
           </div>
-        )
-      })}
+        ) */}
+      {/* })} */}
     </div>
   );
 }
