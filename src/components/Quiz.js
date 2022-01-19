@@ -1,8 +1,8 @@
 function () { //document ready
 
-	// Pizza Data Object
-	const pizza = {
-		pie: [
+	
+	const result = {
+		light: [
 			{
 				title: 'Maker Pizza',
 				price: '$$'
@@ -16,7 +16,7 @@ function () { //document ready
 				price: '$'
 			}
 		],
-		slice: [
+		dark: [
 			{
 				title: 'Pizzaiolo',
 				price: '$$'
@@ -46,14 +46,14 @@ function () { //document ready
 	$('form').on('submit', function (event) {
 		event.preventDefault();
 		//These cannot be cached, because they may change due to the advanced selector of :checked
-		const userSizeSelection = $("input[name=size]:checked").val();
-		const userPriceSelection = $('input[name=price]:checked').val();
+		// const userTempSelection = $("input[name=temp]:checked").val();
+		// const userBrightnessSelection = $('input[name=brightness]:checked').val();
 
 		//Selecting the specific array inside of the Pizza Data Object that reflects user choice of size
-		const sizeOptions = pizza[userSizeSelection];
+		const tempOptions = result[userTempSelection];
 
 		//Filtering the options in that size for the user choice of price
-		const filteredOptions = sizeOptions.filter((restaurant) => {
+		const filteredOptions = tempOptions.filter((restaurant) => {
 			return (restaurant.price === userPriceSelection);
 		});
 

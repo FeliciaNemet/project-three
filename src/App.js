@@ -8,22 +8,42 @@ import './App.css';
 
 function App() {
   const [character, setCharacter] = useState('');
-  const [userInput, setUserInput] = useState('');
-  useEffect( () => {
-    // apiCall();
-    
-  }, []);
+  const [userChange, setUserChange] = useState('');
+  const [temp, setTemp] = useState('');
+  const [brightness, setBrightness] = useState('');
 
 
-  const handleInput = (event) => {
-    setUserInput(event.target.value);
+  // useEffect( () => {
+  //   apiCall();
     
+  // }, []);
+
+
+
+
+
+
+  const handleChange = (event) => {
+    // setUserChange(event.target.value);
+    if (event.target.checked) {
+      setTemp(event.target.value);
+    }
+  }
+
+  const handleChanges = (event) => {
+    // setUserChanges(event.target.value);
+    if (event.target.checked) {
+      setBrightness(event.target.value);
+    }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    apiCall(userInput).then((data)=>{setCharacter(data)});
-    
+    apiCall(userChange).then((data)=>{setCharacter(data)});
+    console.log(temp)
+    console.log(brightness)
+
+    if 
   }
 
   return (
@@ -32,6 +52,30 @@ function App() {
       <h2>Please select a character below.</h2>
 
       <form onSubmit={handleSubmit}>
+				<fieldset className="choices">
+					<legend>Which do you prefer?</legend>
+					<label htmlFor="Hot">Hot</label>
+					<input type="radio" id="Hot" value="Hot" name="temp" checked={temp == 'Hot'}  onChange={handleChange} />
+			
+					<label htmlFor="Cold">Cold</label>
+					<input type="radio" id="cold" value="Cold" name="temp" checked={temp == 'Cold'} onChange={handleChange}/>
+				</fieldset>
+			
+				<fieldset className="choices">
+					<legend>Do you prefer light or dark?</legend>
+					<label htmlFor="Light">Light</label>
+					<input type="radio" name="brightness" id="Light" value="Light" checked={brightness == 'Light'} onChange={handleChanges}/>
+			
+					<label htmlFor="Dark">Dark</label>
+					<input type="radio" name="brightness" id="Dark" value="Dark" checked={brightness == 'Dark'} onChange={handleChanges}/>
+				</fieldset>
+			
+				<input type="submit" value="submit"/>
+			</form>
+      <section className="results"></section>
+
+
+      {/* <form onSubmit={handleSubmit}>
         <label htmlFor="characterChoice">Which character?</label>
         <select 
         name="characterChoice"
@@ -55,7 +99,7 @@ function App() {
           
         </select>
       <input type='submit' value="Submit"/>
-      </form>
+      </form> */}
     {
       character &&(
         <div>
