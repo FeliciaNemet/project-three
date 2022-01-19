@@ -44,7 +44,7 @@ function App() {
     console.log(brightness)
 
     if 
-  }
+  };
 
   return (
     <div className="App">
