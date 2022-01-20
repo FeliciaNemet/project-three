@@ -1,85 +1,98 @@
-// import Header from './Components.js/Header.js';
-// import Footer from './Components.js/Footer.js';
-import { useEffect, useState } from 'react';
-// import react from 'react';
-import axios from 'axios';
-import './App.css';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
+import { useState } from 'react';
+import apiCall from './utils/apiCall.js';
+import heroData from './utils/heroData.js';
+import randomHero from './utils/randomHero.js';
+import ComicList from './components/ComicList.js';
+import './styles/sass/App.scss';
 
 function App() {
-  const [character, setCharacter] = useState([]);
-  const [userInput, setUserInput] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [chosenCharacter, setChosenCharacter] = useState('');
+  const [character, setCharacter] = useState('');
+  const [temp, setTemp] = useState('');
+  const [brightness, setBrightness] = useState('');
 
-  useEffect( () => {
-    
-    axios({
-      url: `http://gateway.marvel.com/v1/public/characters?ts=1&apikey=a8e885bb92f8b3282a281b15ee8b4a19&hash=a0492b78fb5d29118e5a7fda370cbcd4`,
-      method: 'GET',
-      dataResponse: 'json',
-      // params: {
-      //   name: character,
-      //   limit: 1
-      // }
-    }).then((response) => {
-      console.log(response.data.data.results)
-      setCharacter(response.data.data.results)
-    });
-  }, []);
-
-
-
-
-
-
-
-
-  const handleInput = (event) => {
-    console.log('is this working?', event.target.value);
-    setUserInput(event.target.value);
-    
+  const handleChange = (event) => {
+    if (event.target.checked) {
+      setTemp(event.target.value);
+    }
   }
 
+  const handleChanges = (event) => {
+    if (event.target.checked) {
+      setBrightness(event.target.value);
+    }
+  }
+  //Adding an Event Listener for when the form is submitted
   const handleSubmit = (event) => {
     event.preventDefault();
-    setChosenCharacter(userInput);
-  }
+    const data = heroData
+  
+
+      if (temp === 'Hot' && brightness === 'Light'){
+
+        const heroData = randomHero(data[brightness], temp)
+        apiCall(heroData.id).then((data)=>{setCharacter(data)});
+
+      } else if (temp === 'Hot' && brightness === 'Dark'){
+        const heroData = randomHero(data[brightness], temp)
+        apiCall(heroData.id).then((data)=>{setCharacter(data)});
+
+      } else if (temp === 'Cold' && brightness === 'Light'){
+      const heroData = randomHero(data[brightness], temp)
+        apiCall(heroData.id).then((data)=>{setCharacter(data)});
+        
+
+      } else if (temp === 'Cold' && brightness === 'Dark'){
+      const heroData = randomHero(data[brightness], temp)
+        apiCall(heroData.id).then((data)=>{setCharacter(data)});
+      
+      }
 
 
+
+
+};
 
   return (
     <div className="App">
-      <h1>Choose Your Character</h1>
-      <h2>Please select a character below.</h2>
+      <Header />
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+				  <fieldset className="choices">
+					  <legend>Which do you prefer?</legend>
+					  <label htmlFor="Hot">Hot</label>
+					  <input type="radio" id="Hot" value="Hot" name="temp" checked={temp === 'Hot'}  onChange={handleChange} />
+			
+					  <label htmlFor="Cold">Cold</label>
+					  <input type="radio" id="cold" value="Cold" name="temp" checked={temp === 'Cold'} onChange={handleChange}/>
+				  </fieldset>
+			
+				  <fieldset className="choices">
+					  <legend>Do you prefer light or dark?</legend>
+					  <label htmlFor="Light">Light</label>
+					  <input type="radio" name="brightness" id="Light" value="Light" checked={brightness === 'Light'} onChange={handleChanges}/>
+			
+					  <label htmlFor="Dark">Dark</label>
+					  <input type="radio" name="brightness" id="Dark" value="Dark" checked={brightness === 'Dark'} onChange={handleChanges}/>
+				  </fieldset>
+			
+				  <input type="submit" value="submit"/>
+			  </form>
+      </div>
 
-      <form onSubmit={ (e) => {handleSubmit(e)} }>
-        <label htmlFor="characterChoice">Which character?</label>
-        <select 
-        name="characterChoice"
-        id="characterChoice"
-        onChange={handleInput}
-        value={userInput}>
-          <option default value >Please choose a character</option>
-          <option value="Spider-Man (1602)">Spider-Man</option>
-          <option value="Iron Man">Iron Man</option>
-          <option value="Green Goblin (Barry Norman Osborn)">Green Goblin</option>
-          <option value="Doctor Octopus">Doctor Octopus</option>
-          <option value="Daredevil">Daredevil</option>
-          <option value="Iron Fist (Bei Bang-Wen)">Iron Fist</option>
-          <option value="Venom (Flash Thompson)">Venom</option>
-          <option value="Black Panther">Black Panther</option>
-          <option value="Killmonger">Killmonger</option>
-        </select>
-      {/* <button>Submit</button> */}
-      </form>
-      {/* {character.map( (characterData) => {
-        return (
-          <div key={characterData.id}>
-            <h3>{characterData.name}</h3>
-            <img src={characterData} alt={characterData.name} />
-          </div>
-        ) */}
-      {/* })} */}
+    {
+      character &&(
+        <div className="characterBox wrapper">
+        <h3>{character.name}</h3>
+        <img src={`${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`} alt={character.name} />
+        <p className="hide">{character.description}</p>
+        <h4>Here is a suggested reading list</h4>
+        <ComicList object={character.comics} />
+        </div>
+      )
+    }
+    <Footer />
     </div>
   );
 }

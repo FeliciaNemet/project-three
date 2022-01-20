@@ -1,0 +1,58 @@
+$headerFont: 'Bungee Shade', cursive;
+$baseFont: 'Odibee Sans', cursive;
+
+$red: #ea3c53;
+$wheat: wheat;
+$navy: darkblue;
+$ball: #21abcd;
+
+html {
+     font-size: 125%;
+}
+
+h1 {
+     text-transform: uppercase;
+     text-align: center;
+     font-family: $headerFont;
+     color: $red;
+     font-size: 3rem;
+     margin: 5px;
+}
+
+h1:hover {
+          color: $ball;
+     }
+
+h2 {
+     text-transform: uppercase;
+     text-align: center;
+     font-family: $baseFont;
+     color: $red;
+     padding: 5px 0;
+     font-size: 1rem;
+} 
+
+h3, h4{
+     text-transform: uppercase;
+     text-align: center;
+     font-family: $baseFont;
+     color: $red;
+     padding: 5px 0;
+
+}
+
+p {
+     padding: 0.5rem 5rem;
+     font-size: 1.2rem;
+     color: $navy;
+}
+
+a {
+     text-decoration: none;
+     color: $red;
+}
+
+a:hover {
+     color: $navy;
+}
+
