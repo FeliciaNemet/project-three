@@ -1,3 +1,5 @@
+
+// An object that contains 2 arrays. 1 light and 1 dark to allow for filtering later.
 const heroData = {
 		Light: [
 			{
@@ -40,31 +42,31 @@ const heroData = {
 			{
 				title: 'Thanos',
 				temp: 'Cold',
-        id: "1009652"
+				id: "1009652"
 
 			},
 			{
 				title: 'Ultron',
 				temp: 'Cold',
-        id: "1009685"
+				id: "1009685"
 
 			},
 			{
 				title: 'Vulture',
 				temp: 'Hot',
-        id: "1009699"
+				id: "1009699"
 
 			},
 			{
 				title: 'Whiplash',
 				temp: 'Hot',
-        id: "1011588"
+				id: "1011588"
 
 			},
 			{
 				title: 'Abomination',
 				temp: 'Hot',
-        id: '1009146'
+				id: '1009146'
 			}
 		]
 	};
