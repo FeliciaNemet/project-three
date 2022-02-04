@@ -17,7 +17,6 @@ function App() {
       setTemp(event.target.value);
     }
   }
-
   const handleChanges = (event) => {
     if (event.target.checked) {
       setBrightness(event.target.value);
@@ -27,60 +26,42 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = heroData
-  
-
       if (temp === 'Hot' && brightness === 'Light'){
-
         const heroData = randomHero(data[brightness], temp)
         apiCall(heroData.id).then((data)=>{setCharacter(data)});
-
       } else if (temp === 'Hot' && brightness === 'Dark'){
         const heroData = randomHero(data[brightness], temp)
         apiCall(heroData.id).then((data)=>{setCharacter(data)});
-
       } else if (temp === 'Cold' && brightness === 'Light'){
       const heroData = randomHero(data[brightness], temp)
-        apiCall(heroData.id).then((data)=>{setCharacter(data)});
-        
-
+        apiCall(heroData.id).then((data)=>{setCharacter(data)});        
       } else if (temp === 'Cold' && brightness === 'Dark'){
       const heroData = randomHero(data[brightness], temp)
         apiCall(heroData.id).then((data)=>{setCharacter(data)});
-      
       }
-
-
-
-
 };
-
   return (
     <div className="App">
       <Header />
       <div className="wrapper">
         <form onSubmit={handleSubmit}>
-				  <fieldset className="choices">
-					  <legend>Which do you prefer?</legend>
-					  <label htmlFor="Hot">Hot</label>
-					  <input type="radio" id="Hot" value="Hot" name="temp" checked={temp === 'Hot'}  onChange={handleChange} />
-			
-					  <label htmlFor="Cold">Cold</label>
-					  <input type="radio" id="cold" value="Cold" name="temp" checked={temp === 'Cold'} onChange={handleChange}/>
-				  </fieldset>
-			
-				  <fieldset className="choices">
-					  <legend>Do you prefer light or dark?</legend>
-					  <label htmlFor="Light">Light</label>
-					  <input type="radio" name="brightness" id="Light" value="Light" checked={brightness === 'Light'} onChange={handleChanges}/>
-			
-					  <label htmlFor="Dark">Dark</label>
-					  <input type="radio" name="brightness" id="Dark" value="Dark" checked={brightness === 'Dark'} onChange={handleChanges}/>
-				  </fieldset>
-			
-				  <input type="submit" value="submit"/>
-			  </form>
+				<fieldset className="choices">
+					<legend>Which do you prefer?</legend>
+					<label htmlFor="Hot">Hot</label>
+					<input type="radio" id="Hot" value="Hot" name="temp" checked={temp === 'Hot'}  onChange={handleChange} />
+					<label htmlFor="Cold">Cold</label>
+					<input type="radio" id="cold" value="Cold" name="temp" checked={temp === 'Cold'} onChange={handleChange}/>
+				</fieldset>
+				<fieldset className="choices">
+					<legend>Do you prefer light or dark?</legend>
+					<label htmlFor="Light">Light</label>
+					<input type="radio" name="brightness" id="Light" value="Light" checked={brightness === 'Light'} onChange={handleChanges}/>
+					<label htmlFor="Dark">Dark</label>
+					<input type="radio" name="brightness" id="Dark" value="Dark" checked={brightness === 'Dark'} onChange={handleChanges}/>
+				</fieldset>
+				<input type="submit" value="submit"/>
+			</form>
       </div>
-
     {
       character &&(
         <div className="characterBox wrapper">
@@ -96,5 +77,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
