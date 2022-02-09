@@ -290,6 +290,14 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
   .hide {
     display: none;
   }
@@ -310,12 +318,9 @@ footer p {
   text-transform: uppercase;
 }
 
-.App {
-  text-align: center;
-}
-
 body {
   background-color: wheat;
+  text-align: center;
 }
 
 .wrapper {

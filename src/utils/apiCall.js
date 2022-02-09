@@ -14,7 +14,6 @@ return axios({
           alert(`Something went wrong, please refresh the page`);
      });
 }
-
 export default apiCall;
 
 

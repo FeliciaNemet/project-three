@@ -25,20 +25,20 @@ function App() {
   //Adding an Event Listener for when the form is submitted
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = heroData
-      if (temp === 'Hot' && brightness === 'Light'){
-        const heroData = randomHero(data[brightness], temp)
-        apiCall(heroData.id).then((data)=>{setCharacter(data)});
-      } else if (temp === 'Hot' && brightness === 'Dark'){
-        const heroData = randomHero(data[brightness], temp)
-        apiCall(heroData.id).then((data)=>{setCharacter(data)});
-      } else if (temp === 'Cold' && brightness === 'Light'){
+  const data = heroData
+    if (temp === 'Hot' && brightness === 'Light'){
       const heroData = randomHero(data[brightness], temp)
-        apiCall(heroData.id).then((data)=>{setCharacter(data)});        
-      } else if (temp === 'Cold' && brightness === 'Dark'){
+      apiCall(heroData.id).then((data)=>{setCharacter(data)});
+    } else if (temp === 'Hot' && brightness === 'Dark'){
       const heroData = randomHero(data[brightness], temp)
-        apiCall(heroData.id).then((data)=>{setCharacter(data)});
-      }
+      apiCall(heroData.id).then((data)=>{setCharacter(data)});
+    } else if (temp === 'Cold' && brightness === 'Light'){
+      const heroData = randomHero(data[brightness], temp)
+      apiCall(heroData.id).then((data)=>{setCharacter(data)});        
+    } else if (temp === 'Cold' && brightness === 'Dark'){
+      const heroData = randomHero(data[brightness], temp)
+      apiCall(heroData.id).then((data)=>{setCharacter(data)});
+    }
 };
   return (
     <div className="App">
