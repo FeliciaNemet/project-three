@@ -350,7 +350,7 @@ input[type=radio] {
   outline: none;
 }
 
-input[type=radio]:hover {
+input[type=radio]:hover, input[type=radio]:focus {
   -webkit-box-shadow: 0 0 5px 0px darkblue inset;
           box-shadow: 0 0 5px 0px darkblue inset;
 }
@@ -368,7 +368,7 @@ input[type=radio]:checked:before {
   background: #21abcd;
 }
 
-input[type=submit] {
+input[type=submit], button {
   border: 2px solid darkblue;
   display: block;
   font-family: "Odibee Sans", cursive;
@@ -381,7 +381,7 @@ input[type=submit] {
   padding: 0.5em 1em;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
   color: #21abcd;
   background-color: darkblue;
 }

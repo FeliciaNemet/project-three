@@ -61,6 +61,9 @@ function App() {
 				</fieldset>
 				<input type="submit" value="submit"/>
 			</form>
+      <a href="index.html">
+        <button>Reset</button>
+      </a>
       </div>
     {
       character &&(
