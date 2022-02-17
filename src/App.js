@@ -1,82 +1,70 @@
+// NPM modules
+import { useState } from 'react';
+// Components
+import CharacterBox from './components/CharacterBox.js';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
-import { useState } from 'react';
+import UserForm from './components/UserForm.js';
+// Utils
 import apiCall from './utils/apiCall.js';
-import heroData from './utils/heroData.js';
-import randomHero from './utils/randomHero.js';
-import ComicList from './components/ComicList.js';
-import './styles/sass/App.scss';
+// Styles
+import './styles/sass/App.scss'; // Deleted old index.css and App.css as they are not being used
 
-function App() {
+// Changed to ES6 to match other components
+const App = () => {
   const [character, setCharacter] = useState('');
   const [temp, setTemp] = useState('');
   const [brightness, setBrightness] = useState('');
 
-  const handleChange = (event) => {
-    if (event.target.checked) {
-      setTemp(event.target.value);
-    }
+  // Refactored user handle function
+  const handleInputChange = (event, callback) => {
+    event.target.checked && callback(event.target.value);
   }
-  const handleChanges = (event) => {
-    if (event.target.checked) {
-      setBrightness(event.target.value);
-    }
+
+  // Created function to reset content
+  const handleResetState = () => {
+    setCharacter("");
+    setTemp("");
+    setBrightness("");
   }
+
   //Adding an Event Listener for when the form is submitted
   const handleSubmit = (event) => {
     event.preventDefault();
-  const data = heroData
-    if (temp === 'Hot' && brightness === 'Light'){
-      const heroData = randomHero(data[brightness], temp)
-      apiCall(heroData.id).then((data)=>{setCharacter(data)});
-    } else if (temp === 'Hot' && brightness === 'Dark'){
-      const heroData = randomHero(data[brightness], temp)
-      apiCall(heroData.id).then((data)=>{setCharacter(data)});
-    } else if (temp === 'Cold' && brightness === 'Light'){
-      const heroData = randomHero(data[brightness], temp)
-      apiCall(heroData.id).then((data)=>{setCharacter(data)});        
-    } else if (temp === 'Cold' && brightness === 'Dark'){
-      const heroData = randomHero(data[brightness], temp)
-      apiCall(heroData.id).then((data)=>{setCharacter(data)});
+    // Refactored logic to be more readable
+    if(temp && brightness){
+       // Also removed the if logic as the randomHero function already does the heavy lifting for us!
+      apiCall(brightness, temp).then((response) => {
+        const { results } = response.data.data;
+        setCharacter(results[0]);
+      }).catch((error) => {
+        // Moved the catch logic here as axios returns a promise which we are accessing above
+        alert(`Something went wrong, please refresh the page`);
+      });
+    } else {
+      alert(`Please insure that the form is complete!`);
     }
-};
+  };
+
   return (
     <div className="App">
       <Header />
       <div className="wrapper">
-        <form onSubmit={handleSubmit}>
-				<fieldset className="choices">
-					<legend>Which do you prefer?</legend>
-					<label htmlFor="Hot">Hot</label>
-					<input type="radio" id="Hot" value="Hot" name="temp" checked={temp === 'Hot'}  onChange={handleChange} />
-					<label htmlFor="Cold">Cold</label>
-					<input type="radio" id="cold" value="Cold" name="temp" checked={temp === 'Cold'} onChange={handleChange}/>
-				</fieldset>
-				<fieldset className="choices">
-					<legend>Do you prefer light or dark?</legend>
-					<label htmlFor="Light">Light</label>
-					<input type="radio" name="brightness" id="Light" value="Light" checked={brightness === 'Light'} onChange={handleChanges}/>
-					<label htmlFor="Dark">Dark</label>
-					<input type="radio" name="brightness" id="Dark" value="Dark" checked={brightness === 'Dark'} onChange={handleChanges}/>
-				</fieldset>
-				<input type="submit" value="submit"/>
-			</form>
-      <a href="index.html">
-        <button>Reset</button>
-      </a>
+        {/* Moved Form to it's own seperate component */}
+        <UserForm 
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+          brightness={brightness}
+          setBrightness={setBrightness}
+          temp={temp}
+          setTemp={setTemp}
+        />
+        {/* Refactored button to be more semantic and to move logic programmatically */}
+        <button onClick={() => {handleResetState()}}> Reset </button>
       </div>
-    {
-      character &&(
-        <div className="characterBox wrapper">
-        <h3>{character.name}</h3>
-        <img src={`${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`} alt={character.name} />
-        <p className="hide">{character.description}</p>
-        <h4>Here is a suggested reading list</h4>
-        <ComicList object={character.comics} />
-        </div>
-      )
-    }
-    <Footer />
+      {/* Moved this logic to it's own component  */}
+      { character && <CharacterBox character={character}/> }
+      <Footer />
     </div>
   );
 }
